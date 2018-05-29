@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.valparaiso.beans.UtilisateurBean;
-// TODO : mettre a jour en fonction du bean
+// TODO : a tester
 public class UtilisateurDAO {
 	private DAOFactory daoFactory;
 
@@ -14,13 +14,13 @@ public class UtilisateurDAO {
 		this.daoFactory = factory;
 	}
 
-	public UtilisateurBean getUtilisateurById(String id) throws SQLException {
+	public UtilisateurBean getUtilisateurById(String id) throws Exception {
 		Connection co = this.daoFactory.getConnection();
 		UtilisateurBean uBean = null;
 
 		try {
-			String sql = "select loginutilisateur, nomutilisateur, prenomutilisateur, mdputilisateur, isadmin\n"
-					+ "from utilisateur where lower(idutilisateur) = lower(?)";
+			String sql = "select LOGINUTILISATEUR, NOMUTILISATEUR, PRENOMUTILISATEUR, MDPUTILISATEUR, IDFORFAIT \n"
+					+ "from UTILISATEUR where lower(IDUTILISATEUR) = lower(?)";
 			PreparedStatement requete = co.prepareStatement(sql);
 			requete.setString(1, id);
 
@@ -32,7 +32,7 @@ public class UtilisateurDAO {
 						result.getString(2), 
 						result.getString(2), 
 						result.getString(3),  
-						result.getBoolean(4)
+						DAOFactory.getInstance().getForfaitDao().getForfaitById(result.getString(3))
 						);
 			}
 		} catch (SQLException e) {
@@ -45,6 +45,6 @@ public class UtilisateurDAO {
 	}
 
 	public void createUtilisateur(UtilisateurBean u) {
-
+		// TODO : create new user
 	}
 }

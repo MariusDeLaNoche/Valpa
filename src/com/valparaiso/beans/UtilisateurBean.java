@@ -11,7 +11,7 @@ public class UtilisateurBean {
 	private String nom;
 	private String prenom;
 	private String mdp;
-	private Boolean admin;
+	private ForfaitBean forfait;
 	
 	/**
 	 * Constructeur complet bean utilisateur
@@ -21,13 +21,13 @@ public class UtilisateurBean {
 	 * @param mdp
 	 * @param admin
 	 */
-	public UtilisateurBean(String id, String login, String nom, String prenom, String mdp, Boolean admin) {
+	public UtilisateurBean(String id, String login, String nom, String prenom, String mdp, ForfaitBean forfait) {
 		this.id = id;
 		this.login = login;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.mdp = mdp;
-		this.admin = admin;
+		this.forfait = forfait;
 	}
 
 	/**
@@ -101,20 +101,6 @@ public class UtilisateurBean {
 	}
 
 	/**
-	 * @return the admin
-	 */
-	public Boolean getAdmin() {
-		return admin;
-	}
-
-	/**
-	 * @param admin the admin to set
-	 */
-	public void setAdmin(Boolean admin) {
-		this.admin = admin;
-	}
-
-	/**
 	 * @return the login
 	 */
 	public String getLogin() {
@@ -126,5 +112,19 @@ public class UtilisateurBean {
 	 */
 	public void setLogin(String login) {
 		this.login = login;
+	}
+
+	/**
+	 * @return the forfait
+	 */
+	public ForfaitBean getForfait() {
+		return forfait;
+	}
+
+	/**
+	 * @param forfait the forfait to set
+	 */
+	public void setForfait(ForfaitBean forfait) {
+		this.forfait = forfait;
 	}
 }
