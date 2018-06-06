@@ -67,4 +67,25 @@ public class DAOFactory {
 	public ForfaitDAO getForfaitDao() {
 		return new ForfaitDAO(this);
 	}
+	
+	/*
+	 * Méthodes de récupération de l'implémentation des différents DAO
+	 */
+	public TypeFichierDAO getTypeFichierDao() {
+		return new TypeFichierDAO(this);
+	}
+	
+	/*
+	 * Méthodes de récupération de l'implémentation des différents DAO
+	 */
+	public FormatFichierDAO getFormatFichierDao() {
+		return new FormatFichierDAO(this);
+	}
+	
+	/*
+	 * Méthodes de récupération de l'implémentation des différents DAO
+	 */
+	public FichierDAO getFichierDao() {
+		return new FichierDAO(this);
+	}
 }
