@@ -26,16 +26,16 @@ public final class ConnexionForm {
 	 * @return l'instance de l'utilisateur si ok, null sinon
 	 */
 	public UtilisateurBean connecterUser(HttpServletRequest req) {
-		String id = req.getParameter(FORM_USERNAME);
+		String login = req.getParameter(FORM_USERNAME);
 		String mdp = req.getParameter(FORM_PASSWORD);
 		UtilisateurBean uBean = null;
 		UtilisateurBean uBeanResult = null;
 
 		try {
-			verifierValeur(id);
+			verifierValeur(login);
 			verifierValeur(mdp);
 			// Recuperation du l'utilisateur avec l'id renseigné
-			uBean = utilisateurDAO.getUtilisateurById(id);
+			uBean = utilisateurDAO.getUtilisateurByLogin(login);
 			if (uBean != null) {
 				if (uBean.verifyPassword(mdp)) {
 					// Si user existe ET mdp ok, il est retourné

@@ -1,10 +1,10 @@
 package com.valparaiso.beans;
 
 public class ForfaitBean {
-	private String idForfait;
+	private int idForfait;
 	private String libelleForfait;
 	
-	public ForfaitBean(String idForfait, String libelleForfait) {
+	public ForfaitBean(int idForfait, String libelleForfait) {
 		this.idForfait = idForfait;
 		this.libelleForfait = libelleForfait;
 	}
@@ -12,14 +12,14 @@ public class ForfaitBean {
 	/**
 	 * @return the idForfait
 	 */
-	public String getIdForfait() {
+	public int getIdForfait() {
 		return idForfait;
 	}
 
 	/**
 	 * @param idForfait the idForfait to set
 	 */
-	public void setIdForfait(String idForfait) {
+	public void setIdForfait(int idForfait) {
 		this.idForfait = idForfait;
 	}
 

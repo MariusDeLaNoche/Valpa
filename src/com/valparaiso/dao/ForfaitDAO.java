@@ -14,15 +14,15 @@ public class ForfaitDAO {
 		this.daoFactory = factory;
 	}
 
-	public ForfaitBean getForfaitById(String id) throws SQLException {
+	public ForfaitBean getForfaitById(int id) throws SQLException {
 		Connection co = this.daoFactory.getConnection();
 		ForfaitBean fBean = null;
 
 		try {
 			String sql = "select LIBELLEFORFAIT \n"
-					+ "from FORFAIT where lower(IDUTILISATEUR) = lower(?)";
+					+ "from FORFAIT where IDFORFAIT = ?";
 			PreparedStatement requete = co.prepareStatement(sql);
-			requete.setString(1, id);
+			requete.setInt(1, id);
 
 			ResultSet result = requete.executeQuery();
 			if(result.next()) {

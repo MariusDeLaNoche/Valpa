@@ -38,19 +38,6 @@
 						href="/NatationSynchronise/competition">Compétition</a></li>
 				</c:otherwise>
 			</c:choose>
-			<c:if test="${sessionScope.userBean.admin}">
-				<c:choose>
-					<c:when
-						test="${pageContext.request.requestURI == '/NatationSynchronise/WEB-INF/admin.jsp' }">
-						<li class="nav-item active"><a class="nav-link"
-							href="/NatationSynchronise/admin">Administration</a></li>
-					</c:when>
-					<c:otherwise>
-						<li class="nav-item"><a class="nav-link"
-							href="/NatationSynchronise/admin">Administration</a></li>
-					</c:otherwise>
-				</c:choose>
-			</c:if>
 		</ul>
 
 		<ul class="navbar-nav ml-auto">

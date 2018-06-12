@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class UtilisateurBean {
 // TODO : ajouter les nom/prenom en base, Créer la classe ForfaitBean et l'associer a l'utilisateur
-	private String id;
+	private int id;
 	private String login;
 	private String nom;
 	private String prenom;
@@ -21,7 +21,7 @@ public class UtilisateurBean {
 	 * @param mdp
 	 * @param admin
 	 */
-	public UtilisateurBean(String id, String login, String nom, String prenom, String mdp, ForfaitBean forfait) {
+	public UtilisateurBean(int id, String login, String nom, String prenom, String mdp, ForfaitBean forfait) {
 		this.id = id;
 		this.login = login;
 		this.nom = nom;
@@ -33,14 +33,14 @@ public class UtilisateurBean {
 	/**
 	 * @return the id
 	 */
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -88,7 +88,7 @@ public class UtilisateurBean {
            sb.append(Integer.toString((hashMdpBytes[i] & 0xff) + 0x100, 16).substring(1));
         }
         String hashMdpString = sb.toString();
-		
+
         // Comparaison hash passé en param et hash généré
 		return ( this.mdp.equals(hashMdpString) );
 	}

@@ -14,25 +14,55 @@ public class UtilisateurDAO {
 		this.daoFactory = factory;
 	}
 
-	public UtilisateurBean getUtilisateurById(String id) throws Exception {
+	public UtilisateurBean getUtilisateurById(int id) throws Exception {
 		Connection co = this.daoFactory.getConnection();
 		UtilisateurBean uBean = null;
 
 		try {
 			String sql = "select LOGINUTILISATEUR, NOMUTILISATEUR, PRENOMUTILISATEUR, MDPUTILISATEUR, IDFORFAIT \n"
-					+ "from UTILISATEUR where lower(IDUTILISATEUR) = lower(?)";
+					+ "from UTILISATEUR where IDUTILISATEUR = ?";
 			PreparedStatement requete = co.prepareStatement(sql);
-			requete.setString(1, id);
+			requete.setInt(1, id);
 
 			ResultSet result = requete.executeQuery();
 			if(result.next()) {
 				uBean = new UtilisateurBean(
 						id,
 						result.getString(1),
-						result.getString(2), 
-						result.getString(2), 
-						result.getString(3),  
-						DAOFactory.getInstance().getForfaitDao().getForfaitById(result.getString(3))
+						result.getString(3), 
+						result.getString(4), 
+						result.getString(2),  
+						DAOFactory.getInstance().getForfaitDao().getForfaitById(result.getInt(0))
+						);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new SQLException("Erreur technique. Veuillez contacter l'administrateur système.");
+		} finally {
+			co.close();
+		}
+		return uBean;
+	}
+	
+	public UtilisateurBean getUtilisateurByLogin(String login) throws Exception {
+		Connection co = this.daoFactory.getConnection();
+		UtilisateurBean uBean = null;
+
+		try {
+			String sql = "select * \n"
+					+ "from UTILISATEUR where lower(LOGINUTILISATEUR) = lower(?)";
+			PreparedStatement requete = co.prepareStatement(sql);
+			requete.setString(1, login);
+
+			ResultSet result = requete.executeQuery();
+			if(result.next()) {
+				uBean = new UtilisateurBean(
+						result.getInt(1),
+						login,
+						result.getString(5),
+						result.getString(6), 
+						result.getString(4),  
+						DAOFactory.getInstance().getForfaitDao().getForfaitById(result.getInt(2))
 						);
 			}
 		} catch (SQLException e) {

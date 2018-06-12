@@ -18,9 +18,6 @@ public class FichierDAO {
 		this.daoFactory = factory;
 	}
 	
-	/*
-	 * TODO A voir pour créer l'arborescence directement ou à faire coté métier avec les Beans
-	 */
 	
 	public List<FichierBean> getAllFichierByUtilisateur(UtilisateurBean utilisateur) throws Exception {
 		Connection co = this.daoFactory.getConnection();
@@ -29,7 +26,7 @@ public class FichierDAO {
 		try {
 			String sql = "select * from fichier where lower(idutilisateur) = lower(?)";
 			PreparedStatement requete = co.prepareStatement(sql);
-			requete.setString(1, utilisateur.getId());
+			requete.setInt(1, utilisateur.getId());
 
 			ResultSet result = requete.executeQuery();
 			while(result.next()) {
@@ -46,7 +43,10 @@ public class FichierDAO {
 				// Récupération du fichier parent si présent
 				int idParent = result.getInt(1);
 				if(idParent != 0) {
-					FichierBean fichierParent = getFichierById(idParent);
+					// On regarde dans la liste si le FichierBean correspondant a déjà été récupéré
+					FichierBean fichierParent = listFichier.stream().filter(f -> f.getId() == idParent).findFirst().orElse(null);
+					if(fichierParent == null)
+						fichierParent = getFichierById(listFichier, idParent);
 					fichier.setParent(fichierParent);
 				}				
 				
@@ -69,7 +69,7 @@ public class FichierDAO {
 		return listFichier;
 	}
 	
-	public FichierBean getFichierById(int idFichier) throws Exception {
+	public FichierBean getFichierById(List<FichierBean> listFichier, int idFichier) throws Exception {
 		Connection co = this.daoFactory.getConnection();
 		FichierBean fichier = null;
 		
@@ -93,13 +93,16 @@ public class FichierDAO {
 				// Récupération du fichier parent si présent
 				int idParent = result.getInt(1);
 				if(idParent != 0) {
-					FichierBean fichierParent = getFichierById(idParent);
+					// On regarde dans la liste si le FichierBean correspondant a déjà été récupéré
+					FichierBean fichierParent = listFichier.stream().filter(f -> f.getId() == idParent).findFirst().orElse(null);
+					if(fichierParent == null)
+						fichierParent = getFichierById(listFichier, idParent);
 					fichier.setParent(fichierParent);
 				}				
 				
 				// Récupération de l'utilisateur
-				String idUtilisateur = result.getString(2);
-				if(idUtilisateur != null) {
+				int idUtilisateur = result.getInt(2);
+				if(idUtilisateur != 0) {
 					UtilisateurBean utilisateur = daoFactory.getUtilisateurDao().getUtilisateurById(idUtilisateur);
 					fichier.setUtilisateur(utilisateur);
 				}
