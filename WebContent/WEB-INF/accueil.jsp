@@ -12,8 +12,7 @@
 		<div class="container">
 			<div class="justify-content-center blocFondBlanc">
 				<h2>Bienvenue ${ nomPrenomUser }</h2>
-				<div id="jstree_div">
-				</div>
+				<div id="jstree_div"></div>
 			</div>
 		</div>
 		<jsp:include page="parts/footer.jsp" />

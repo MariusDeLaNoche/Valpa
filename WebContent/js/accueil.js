@@ -1,53 +1,37 @@
-var debug = '';
+var jsTreeRef = '';
 $(window).on('load',()=>{	
+	// Test AJAX
+	$.jstree.defaults.core.data = true;
 	$('#jstree_div').jstree({
-		'core' : {
-			'data' : [
-				{
-					"text" : "Root node",
-					"state" : { "opened" : true },
-					"libelleTechnique" : "patatechaudetest.pgm",
-					"children" : [
-						{
-							"text" : "Child node 1",
-							"icon" : "jstree-file",
-							"libelleTechnique" : "jaimelespommes.haricotvert"
-						},
-						{
-							"text" : "Child node 2",
-							"state" : { "opened" : true },
-							"libelleTechnique" : "mariacoccinelle.rpz",
-							"children" : [
-								{
-									"text" : "Test file",
-									"libelleTechnique" : "rondoudou.kawai",
-									"icon" : "jstree-file"
-								},
-								{
-									"text" : "Test folder",
-									"libelleTechnique" : "bw4ss_SAMA.amonakoyum"
-								}
-							]
-						}
-					]
-				}
-			]
-		}
+		"plugins" : [ "wholerow" ],
+	    'core' : {
+	        'data' : {
+	            'url' : 'accueil?para=tree',
+	            'data' : function (node) {
+	                return { 
+	                	'id' : node.id,
+	                	'text' : node.text,
+	                	'icon' : node.icon,
+	                	'state' : node.state,
+	                	'children' : node.children
+	                };
+	            }
+	        }
+	    }
 	});
 	
-	// Event déclenché si changement sur jstree
+	debug = jsTreeRef = $.jstree.reference('#jstree_div');
+	// jsTreeRef.get_json()[0] // Récupère l'arbo en json(pour l'envoi au serv ?)
+	
+	
+	// Event déclenché si action sur jstree
 	$('#jstree_div').on('changed.jstree', function (e, data) {
+		// On récupère les noeuds sélectionnés
 	    var i, j, r = [];
 	    for(i = 0, j = data.selected.length; i < j; i++) {
-	      r.push(data.instance.get_node(data.selected[i]).original.libelleTechnique);
+	      r.push(data.instance.get_node(data.selected[i]).original.text);
 	    }
 	    console.log(r.join(', '));
-	  })
-	  // create the instance
-	  .jstree();
+	  }).jstree();
    
 });
-
-//window.onload(function(){
-//	
-//})

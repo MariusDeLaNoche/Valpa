@@ -47,7 +47,8 @@ public class ConnexionServlet extends HttpServlet {
 			// Redirection vers l'accueil
 			HttpSession session = req.getSession();
 			session.setAttribute(ATTR_SESSION_USERBEAN, utilisateurBean);
-			this.getServletContext().getRequestDispatcher(VUE_ACCUEIL).forward(req, resp);
+			resp.sendRedirect( req.getContextPath() + "/accueil"); // Si on utilise forward on n'arrivera pas dans la servlet Accueil
+			//this.getServletContext().getRequestDispatcher(VUE_ACCUEIL).forward(req, resp);
 		} else {
 			// Stockage des messages d'erreur et transmission à la page JSP
 			req.setAttribute("erreurs", cf.getErreurs());

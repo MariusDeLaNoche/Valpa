@@ -33,6 +33,28 @@ public class AccueilServlet extends HttpServlet {
         } else {
             /* Affichage de la page restreinte */
         	request.setAttribute("nomPrenomUser", user.getNom() + " " + user.getPrenom());
+        	
+        	String para = request.getParameter("para");
+        	if(para != null && para.equals("tree")) {
+        		// TODO Génération du JSON correspondant à l'arbo fichier de l'utilisateur, à déplacer dans une classe métier
+        		
+        		// Test d'envoi de données en brutsamere
+	        	String testJSON = "{"
+		        			+ "\"id\":\"idFichier\","
+		        			+ "\"text\":\"root\","
+		        			+ "\"icon\":\"\","
+		        			+ "\"state\":{\"opened\":true},"
+		        			+ "\"children\": ["
+		        				+ "{\"text\":\"File1\", \"icon\":\"jstree-file\"},"
+		        				+ "{\"text\":\"File2\", \"icon\":\"jstree-file\"},"
+		        				+ "{\"text\":\"Folder1\"}"
+		        			+ "]"
+	        			+ "}";
+	        	response.setContentType("application/json");
+	        	response.getWriter().write(testJSON);
+	        	return;
+        	}
+        	
         	this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
         }
         
