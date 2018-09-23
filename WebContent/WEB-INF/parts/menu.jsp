@@ -27,6 +27,17 @@
 						href="/Valpa/accueil">Accueil</a></li>
 				</c:otherwise>
 			</c:choose>
+			<c:choose>
+				<c:when
+					test="${pageContext.request.requestURI == '/Valpa/WEB-INF/admin.jsp' }">
+					<li class="nav-item active"><a class="nav-link"
+						href="/Valpa/admin">Gérer mon compte</a></li>
+				</c:when>
+				<c:otherwise>
+					<li class="nav-item"><a class="nav-link"
+						href="/Valpa/admin">Gérer mon compte</a></li>
+				</c:otherwise>
+			</c:choose>
 		</ul>
 
 		<ul class="navbar-nav ml-auto">

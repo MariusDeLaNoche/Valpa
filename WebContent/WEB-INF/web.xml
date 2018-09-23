@@ -29,6 +29,15 @@
 		<servlet-name>accueil</servlet-name>
 		<url-pattern>/accueil</url-pattern>
 	</servlet-mapping>
+	<!-- Page d'administration comtpe -->
+	<servlet>
+		<servlet-name>admin</servlet-name>
+		<servlet-class>com.valparaiso.servlets.AdminServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>admin</servlet-name>
+		<url-pattern>/admin</url-pattern>
+	</servlet-mapping>
 	<!-- Page de déconnexion -->
 	<servlet>
 		<servlet-name>logout</servlet-name>
