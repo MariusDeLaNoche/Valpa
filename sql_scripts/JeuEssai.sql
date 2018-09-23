@@ -84,6 +84,33 @@ insert into formatfichier(IDTYPEFICHIER, CODEFORMAT) values (4, '.tiff');
 insert into formatfichier(IDTYPEFICHIER, CODEFORMAT) values (4, '.jpeg');
 insert into formatfichier(IDTYPEFICHIER, CODEFORMAT) values (4, '.gif');
 insert into formatfichier(IDTYPEFICHIER, CODEFORMAT) values (4, '.png');
+/*==============================================================*/
+/* Table: FORMATFICHIER                                */
+/*==============================================================*/
+insert into formatfichier(IDTYPEFICHIER, CODEFORMAT) values (1, '.txt');
+insert into formatfichier(IDTYPEFICHIER, CODEFORMAT) values (2, '.avi');
+insert into formatfichier(IDTYPEFICHIER, CODEFORMAT) values (2, '.wmv');
+insert into formatfichier(IDTYPEFICHIER, CODEFORMAT) values (2, '.mkv');
+insert into formatfichier(IDTYPEFICHIER, CODEFORMAT) values (3, '.wav');
+insert into formatfichier(IDTYPEFICHIER, CODEFORMAT) values (3, '.mp3');
+insert into formatfichier(IDTYPEFICHIER, CODEFORMAT) values (3, '.wma');
+insert into formatfichier(IDTYPEFICHIER, CODEFORMAT) values (4, '.bmp');
+insert into formatfichier(IDTYPEFICHIER, CODEFORMAT) values (4, '.tiff');
+insert into formatfichier(IDTYPEFICHIER, CODEFORMAT) values (4, '.jpeg');
+insert into formatfichier(IDTYPEFICHIER, CODEFORMAT) values (4, '.gif');
+insert into formatfichier(IDTYPEFICHIER, CODEFORMAT) values (4, '.png');
+
+/*==============================================================*/
+/* Table: FICHIER - Création d'un fichier ROOT                           */
+/*==============================================================*/
+insert into fichier(libelleUserFichier,
+                libelleTechniqueFichier,
+                tailleFichier,
+                estUnDossier, 
+                FIC_IDFICHIER,
+                IDUTILISATEUR, 
+                IDFORMAT)
+values('ROOT', 'root', 0, true, null, 1, null);
 
 /*==============================================================*/
 /* Table: FICHIER - Création d'un fichier de type texte à la racine                            */
@@ -95,7 +122,7 @@ insert into fichier(libelleUserFichier,
                 FIC_IDFICHIER,
                 IDUTILISATEUR, 
                 IDFORMAT)
-values('Fichier2', 'fichier2', 630000000, false, null, 1, 1);
+values('Fichier1', 'fichier1', 630000000, false, 1, 1, 1);
 
 
 /*==============================================================*/
@@ -112,7 +139,7 @@ insert into fichier(libelleUserFichier,
                 FIC_IDFICHIER,
                 IDUTILISATEUR, 
                 IDFORMAT)
-values('Folder1', 'folder1', 0, true, null, 1, null);
+values('Folder1', 'folder1', 0, true, 1, 1, null);
 
 /*
 Création d'un fichier de type vidéo dans un dossier
@@ -124,7 +151,7 @@ insert into fichier(libelleUserFichier,
                     FIC_IDFICHIER,
                     IDUTILISATEUR, 
                     IDFORMAT)
-values('Fichier1', 'fichier1', 4500000, false, 2, 1, 2);
+values('Fichier2', 'fichier2', 4500000, false, 3, 1, 2);
     
 /*
 Création d'un fichier de type audio dans un dossier
@@ -136,7 +163,7 @@ insert into fichier(libelleUserFichier,
                     FIC_IDFICHIER,
                     IDUTILISATEUR, 
                     IDFORMAT)
-values('Fichier1', 'fichier1', 65000000, false, 2, 1, 3);
+values('Fichier3', 'fichier3', 65000000, false, 3, 1, 3);
     
 /*
 Création d'un fichier de type image dans un dossier
@@ -148,7 +175,113 @@ insert into fichier(libelleUserFichier,
                     FIC_IDFICHIER,
                     IDUTILISATEUR, 
                     IDFORMAT)
-values('Fichier1', 'fichier1', 72000000, false, 2, 1, 4);
+values('Fichier4', 'fichier4', 72000000, false, 3, 1, 4);
+    
+insert into facture(dateFacture,
+					consoStockageFacture,
+					consoOperationFacture,
+					consoFluxFacture,
+					idutilisateur,
+					idtarification)
+values('31/05/2018', 560000, 12, 235600, 1, 1);
+
+	
+/*==============================================================*/
+/* TEST TRIGGER                             */
+/*==============================================================*/
+/*
+insert into tarificationsupplement (idsupplement, idtarification)
+values(3,1);
+*/
+/*
+Création d'un fichier dans un autre fichier
+*/
+/*
+insert into fichier(libelleUserFichier,
+                    libelleTechniqueFichier,
+                    tailleFichier,
+                    estUnDossier, 
+                    FIC_IDFICHIER,
+                    IDUTILISATEUR, 
+                    IDFORMAT)
+values('Fichier3', 'fichier3', 5000000, false, 1, 1, null);
+*/
+/*==============================================================*/
+/* Table: FICHIER - Création d'un fichier ROOT                           */
+/*==============================================================*/
+insert into fichier(libelleUserFichier,
+                libelleTechniqueFichier,
+                tailleFichier,
+                estUnDossier, 
+                FIC_IDFICHIER,
+                IDUTILISATEUR, 
+                IDFORMAT)
+values('ROOT', 'root', 0, true, null, 1, null);
+
+/*==============================================================*/
+/* Table: FICHIER - Création d'un fichier de type texte à la racine                            */
+/*==============================================================*/
+insert into fichier(libelleUserFichier,
+                libelleTechniqueFichier,
+                tailleFichier,
+                estUnDossier, 
+                FIC_IDFICHIER,
+                IDUTILISATEUR, 
+                IDFORMAT)
+values('Fichier1', 'fichier1', 630000000, false, 1, 1, 1);
+
+
+/*==============================================================*/
+/* Table: FORMATFICHIER                                */
+/*==============================================================*/
+
+/*
+Création d'un dossier
+*/
+insert into fichier(libelleUserFichier,
+                libelleTechniqueFichier,
+                tailleFichier,
+                estUnDossier, 
+                FIC_IDFICHIER,
+                IDUTILISATEUR, 
+                IDFORMAT)
+values('Folder1', 'folder1', 0, true, 1, 1, null);
+
+/*
+Création d'un fichier de type vidéo dans un dossier
+*/
+insert into fichier(libelleUserFichier,
+                    libelleTechniqueFichier,
+                    tailleFichier,
+                    estUnDossier, 
+                    FIC_IDFICHIER,
+                    IDUTILISATEUR, 
+                    IDFORMAT)
+values('Fichier2', 'fichier2', 4500000, false, 3, 1, 2);
+    
+/*
+Création d'un fichier de type audio dans un dossier
+*/
+insert into fichier(libelleUserFichier,
+                    libelleTechniqueFichier,
+                    tailleFichier,
+                    estUnDossier, 
+                    FIC_IDFICHIER,
+                    IDUTILISATEUR, 
+                    IDFORMAT)
+values('Fichier3', 'fichier3', 65000000, false, 3, 1, 3);
+    
+/*
+Création d'un fichier de type image dans un dossier
+*/
+insert into fichier(libelleUserFichier,
+                    libelleTechniqueFichier,
+                    tailleFichier,
+                    estUnDossier, 
+                    FIC_IDFICHIER,
+                    IDUTILISATEUR, 
+                    IDFORMAT)
+values('Fichier4', 'fichier4', 72000000, false, 3, 1, 4);
     
 insert into facture(dateFacture,
 					consoStockageFacture,
