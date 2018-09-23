@@ -29,10 +29,10 @@ public class UtilisateurDAO {
 				uBean = new UtilisateurBean(
 						id,
 						result.getString(1),
+						result.getString(2), 
 						result.getString(3), 
-						result.getString(4), 
-						result.getString(2),  
-						DAOFactory.getInstance().getForfaitDao().getForfaitById(result.getInt(0))
+						result.getString(4),  
+						DAOFactory.getInstance().getForfaitDao().getForfaitById(result.getInt(5))
 						);
 			}
 		} catch (SQLException e) {

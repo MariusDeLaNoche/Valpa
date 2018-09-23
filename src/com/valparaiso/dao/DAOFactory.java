@@ -37,7 +37,7 @@ public class DAOFactory {
 			throw new ClassNotFoundException("Le driver SQL est introuvable");
 		}
 
-		DAOFactory instance = new DAOFactory("localhost:5432/BaseValpa", "postgres", "password");
+		DAOFactory instance = new DAOFactory("localhost:5432/BaseValpa", "postgres", "123");
 		return instance;
 	}
 

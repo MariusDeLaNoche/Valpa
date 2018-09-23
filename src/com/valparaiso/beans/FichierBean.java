@@ -1,14 +1,18 @@
 package com.valparaiso.beans;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FichierBean {
-	int id;
-	UtilisateurBean utilisateur;
-	FormatFichierBean format;
-	FichierBean parent;
-	String libelleUserFichier;
-	String libelleTechniqueFichier;
-	long tailleFichier;
-	Boolean estUnDossier;
+	private int id;
+	private UtilisateurBean utilisateur;
+	private FormatFichierBean format;
+	private FichierBean parent;
+	private String libelleUserFichier;
+	private String libelleTechniqueFichier;
+	private long tailleFichier;
+	private Boolean estUnDossier;
+	private List<FichierBean> children;
 	
 	/**
 	 * Constructeur d'un fichier
@@ -39,6 +43,7 @@ public class FichierBean {
 		this.libelleTechniqueFichier = libelleTechnique;
 		this.tailleFichier = tailleFichier;
 		this.estUnDossier = estUnDossier;
+		this.children = new ArrayList<>();
 	}
 	
 	/**
@@ -151,6 +156,20 @@ public class FichierBean {
 	 */
 	public void setEstUnDossier(Boolean estUnDossier) {
 		this.estUnDossier = estUnDossier;
+	}
+
+	/**
+	 * @return the children
+	 */
+	public List<FichierBean> getChildren() {
+		return children;
+	}
+
+	/**
+	 * @param children the children to set
+	 */
+	public void setChildren(List<FichierBean> children) {
+		this.children = children;
 	}
 	
 }

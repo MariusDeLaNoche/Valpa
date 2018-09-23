@@ -31,8 +31,8 @@ public class FormatFichierDAO {
 				formatFichier = new FormatFichierBean(
 						id,
 						null,
-						result.getString(2));
-				TypeFichierBean fichierBean = daoFactory.getTypeFichierDao().getTypeFichierById(result.getInt(1));
+						result.getString(3));
+				TypeFichierBean fichierBean = daoFactory.getTypeFichierDao().getTypeFichierById(result.getInt(2));
 				formatFichier.setTypeFichier(fichierBean);
 			}
 		} catch (SQLException e) {
@@ -57,10 +57,10 @@ public class FormatFichierDAO {
 			ResultSet result = requete.executeQuery();
 			while(result.next()) {
 				FormatFichierBean formatFichier = new FormatFichierBean(
-						result.getInt(0),
+						result.getInt(1),
 						null,
-						result.getString(2));
-				TypeFichierBean fichierBean = daoFactory.getTypeFichierDao().getTypeFichierById(result.getInt(1));
+						result.getString(3));
+				TypeFichierBean fichierBean = daoFactory.getTypeFichierDao().getTypeFichierById(result.getInt(2));
 				formatFichier.setTypeFichier(fichierBean);
 				
 				listFormat.add(formatFichier);

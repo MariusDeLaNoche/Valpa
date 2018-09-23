@@ -24,24 +24,24 @@ public class FichierDAO {
 		List<FichierBean> listFichier = new ArrayList<>();
 		
 		try {
-			String sql = "select * from fichier where lower(idutilisateur) = lower(?)";
+			String sql = "select * from fichier where idutilisateur = ?";
 			PreparedStatement requete = co.prepareStatement(sql);
 			requete.setInt(1, utilisateur.getId());
 
 			ResultSet result = requete.executeQuery();
 			while(result.next()) {
 				FichierBean fichier = new FichierBean(
-						result.getInt(0),
+						result.getInt(1),
 						null,
 						utilisateur,
 						null,
-						result.getString(4),
 						result.getString(5),
-						result.getLong(6),
-						result.getBoolean(7));
+						result.getString(6),
+						result.getLong(7),
+						result.getBoolean(8));
 				
 				// Récupération du fichier parent si présent
-				int idParent = result.getInt(1);
+				int idParent = result.getInt(2);
 				if(idParent != 0) {
 					// On regarde dans la liste si le FichierBean correspondant a déjà été récupéré
 					FichierBean fichierParent = listFichier.stream().filter(f -> f.getId() == idParent).findFirst().orElse(null);
@@ -51,9 +51,9 @@ public class FichierDAO {
 				}				
 				
 				// Récupération du format du fichier
-				int idFormat = result.getInt(3);
+				int idFormat = result.getInt(4);
 				if(idFormat != 0) {
-					FormatFichierBean formatFichier = daoFactory.getFormatFichierDao().getFormatFichierById(result.getInt(3));
+					FormatFichierBean formatFichier = daoFactory.getFormatFichierDao().getFormatFichierById(result.getInt(4));
 					fichier.setFormat(formatFichier);
 				}
 				
@@ -74,24 +74,24 @@ public class FichierDAO {
 		FichierBean fichier = null;
 		
 		try {
-			String sql = "?";
+			String sql = "select * from fichier where idfichier = ?";
 			PreparedStatement requete = co.prepareStatement(sql);
 			requete.setInt(1, idFichier);
 
 			ResultSet result = requete.executeQuery();
 			if(result.next()) {
 				fichier = new FichierBean(
-						result.getInt(0),
+						result.getInt(1),
 						null,
 						null,
 						null,
-						result.getString(4),
 						result.getString(5),
-						result.getLong(6),
-						result.getBoolean(7));
+						result.getString(6),
+						result.getLong(7),
+						result.getBoolean(8));
 				
 				// Récupération du fichier parent si présent
-				int idParent = result.getInt(1);
+				int idParent = result.getInt(2);
 				if(idParent != 0) {
 					// On regarde dans la liste si le FichierBean correspondant a déjà été récupéré
 					FichierBean fichierParent = listFichier.stream().filter(f -> f.getId() == idParent).findFirst().orElse(null);
@@ -101,14 +101,14 @@ public class FichierDAO {
 				}				
 				
 				// Récupération de l'utilisateur
-				int idUtilisateur = result.getInt(2);
+				int idUtilisateur = result.getInt(3);
 				if(idUtilisateur != 0) {
 					UtilisateurBean utilisateur = daoFactory.getUtilisateurDao().getUtilisateurById(idUtilisateur);
 					fichier.setUtilisateur(utilisateur);
 				}
 				
 				// Récupération du format du fichier
-				int idFormat = result.getInt(3);
+				int idFormat = result.getInt(4);
 				if(idFormat != 0) {
 					FormatFichierBean formatFichier = daoFactory.getFormatFichierDao().getFormatFichierById(result.getInt(3));
 					fichier.setFormat(formatFichier);

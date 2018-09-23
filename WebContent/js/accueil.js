@@ -1,6 +1,6 @@
 var jsTreeRef = '';
 $(window).on('load',()=>{	
-	// Test AJAX
+	// AJAX
 	$.jstree.defaults.core.data = true;
 	$('#jstree_div').jstree({
 		"plugins" : [ "wholerow" ],
@@ -11,6 +11,7 @@ $(window).on('load',()=>{
 	                return { 
 	                	'id' : node.id,
 	                	'text' : node.text,
+	                	'type' : node.type,
 	                	'icon' : node.icon,
 	                	'state' : node.state,
 	                	'children' : node.children
@@ -21,7 +22,7 @@ $(window).on('load',()=>{
 	});
 	
 	debug = jsTreeRef = $.jstree.reference('#jstree_div');
-	// jsTreeRef.get_json()[0] // Récupère l'arbo en json(pour l'envoi au serv ?)
+	// jsTreeRef.get_json()[0] // Récupère l'arbo en json(pour l'envoi au serv)
 	
 	
 	// Event déclenché si action sur jstree
@@ -33,5 +34,10 @@ $(window).on('load',()=>{
 	    }
 	    console.log(r.join(', '));
 	  }).jstree();
+	
+	// Event déclenché si click sur jstree
+	$('#jstree_div').on('select_node.jstree', function (e, data) {
+		document.getElementById("info_file").innerHTML = "Nom fichier: " + data.node.original.text + "<br />" + "Type: " + data.node.original.type;
+	});
    
 });

@@ -27,7 +27,7 @@ public class TypeFichierDAO {
 			if(result.next()) {
 				typeFichier = new TypeFichierBean(
 						id,
-						result.getString(1));
+						result.getString(2));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
