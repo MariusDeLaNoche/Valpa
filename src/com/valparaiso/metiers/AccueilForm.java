@@ -1,12 +1,19 @@
 package com.valparaiso.metiers;
 
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
-
 import com.valparaiso.beans.FichierBean;
 import com.valparaiso.beans.UtilisateurBean;
 import com.valparaiso.dao.FichierDAO;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 
 public class AccueilForm {
 	private FichierDAO fichierDAO;
@@ -39,5 +46,55 @@ public class AccueilForm {
 			getChildrenFiles(file.getChildren(), allFiles);
 		}
 		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public String generateJsonByRootFile(FichierBean root) {
+	    JSONObject obj = new JSONObject();
+	    obj.put("id", root.getId()); // ID
+	    obj.put("text", root.getLibelleUserFichier()); // TEXT
+	    obj.put("type", "ROOT FOLDER"); // TYPE
+	    obj.put("icon", ""); // ICON
+	    obj.put("state", "open"); // STATE
+	    
+	    ArrayList<Map<String, Object>> children = new ArrayList<Map<String, Object>>();
+	    getChildrenJson(root.getChildren(), children);
+	    obj.put("children", children); // CHILDREN
+
+		StringWriter out = new StringWriter();
+		try {
+			obj.writeJSONString(out);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "";
+		}
+		 
+		String jsonText = out.toString();
+		return jsonText;
+	}
+	
+	public void getChildrenJson(List<FichierBean> files, ArrayList<Map<String, Object>> mapChild) {
+	    for(FichierBean f : files) {
+		    Map<String, Object> child  = new HashMap<String, Object>();
+		    child.put("id", f.getId()); // ID
+		    child.put("text", f.getLibelleUserFichier()); // TEXT
+		    if(f.getFormat() != null) { 
+		    	child.put("format", f.getFormat().getCodeFormat()); // TYPE
+		    	child.put("type", f.getFormat().getTypeFichier().getLibelleTypeFichier()); // TYPE
+		    }
+		    else
+		    	child.put("type", "Folder"); // TYPE
+		    if(f.getEstUnDossier())
+		    	child.put("icon", ""); // ICON
+		    else
+		    	child.put("icon", "jstree-file"); // ICON
+		    if(!f.getChildren().isEmpty()) {
+		    	ArrayList<Map<String, Object>> children = new ArrayList<Map<String, Object>>();
+			    getChildrenJson(f.getChildren(), children);
+		    	child.put("children", children); // CHILDREN
+		    }
+
+		    mapChild.add(child);
+	    }
 	}
 }

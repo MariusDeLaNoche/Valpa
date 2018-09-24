@@ -1,8 +1,6 @@
 package com.valparaiso.servlets;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +12,6 @@ import com.valparaiso.beans.UtilisateurBean;
 import com.valparaiso.dao.DAOFactory;
 import com.valparaiso.dao.FichierDAO;
 import com.valparaiso.metiers.AccueilForm;
-
 /**
  * Servlet implementation class AccueilServlet
  */
@@ -50,28 +47,12 @@ public class AccueilServlet extends HttpServlet {
         	
         	String para = request.getParameter("para");
         	if(para != null && para.equals("tree")) {
-        		// TODO Génération du JSON correspondant à l'arbo fichier de l'utilisateur, à déplacer dans une classe métier
+        		// Génération du JSON correspondant à l'arbo fichier de l'utilisateur, à déplacer dans une classe métier
         		AccueilForm accueilForm = new AccueilForm(fichierDAO);
-        		@SuppressWarnings("unused")
 				FichierBean rootFile = accueilForm.getFichierRootByIdUtilisateur(user);
-        		
-        		// Test d'envoi de données en brut
-	        	String testJSON = "{"
-		        			+ "\"id\":\"idFichier\","
-		        			+ "\"text\":\"root\","
-		        			+ "\"type\":\"ROOT FOLDER\","
-		        			+ "\"icon\":\"\","
-		        			+ "\"state\":{\"opened\":true},"
-		        			+ "\"children\": ["
-		        				+ "{\"text\":\"File1\", \"icon\":\"jstree-file\", \"type\":\"PNG\"},"
-		        				+ "{\"text\":\"File2\", \"icon\":\"jstree-file\", \"type\":\"txt\"},"
-		        				+ "{\"text\":\"Folder1\", \"type\":\"Folder\",\"children\":"
-		        					+ "[{\"text\":\"File3\", \"icon\":\"jstree-file\", \"type\":\"MKV\"}]"
-		        				+ "}"
-		        			+ "]"
-	        			+ "}";
+				String jsonToSend = accueilForm.generateJsonByRootFile(rootFile);
 	        	response.setContentType("application/json");
-	        	response.getWriter().write(testJSON);
+	        	response.getWriter().write(jsonToSend);
 	        	return;
         	}
         	

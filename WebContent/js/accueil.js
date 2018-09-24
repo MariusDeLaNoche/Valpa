@@ -11,6 +11,7 @@ $(window).on('load',()=>{
 	                return { 
 	                	'id' : node.id,
 	                	'text' : node.text,
+	                	'format': node.format,
 	                	'type' : node.type,
 	                	'icon' : node.icon,
 	                	'state' : node.state,
@@ -37,7 +38,9 @@ $(window).on('load',()=>{
 	
 	// Event déclenché si click sur jstree
 	$('#jstree_div').on('select_node.jstree', function (e, data) {
-		document.getElementById("info_file").innerHTML = "Nom fichier: " + data.node.original.text + "<br />" + "Type: " + data.node.original.type;
+		document.getElementById("info_file").innerHTML = "Nom fichier: " + data.node.original.text + "<br />" 
+		+ "Type: " + data.node.original.type + "<br />"
+		+ "Format: " + data.node.original.format;
 	});
    
 });
