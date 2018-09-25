@@ -9,9 +9,9 @@
 	</button>
 
 	<a class="navbar-brand" href="/Valpa/accueil"> <img
-		src="${pageContext.request.contextPath}/img/logo_ffn_light.png"
+		src="${pageContext.request.contextPath}/img/logo_valpa_light.png"
 		width="21" height="30" class="d-inline-block align-top" alt="">
-		FFC
+		Mon espace
 	</a>
 
 	<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
